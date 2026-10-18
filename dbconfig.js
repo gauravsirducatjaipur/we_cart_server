@@ -1,13 +1,13 @@
 const mongoose = require("mongoose");
-const URL = "mongodb://127.0.0.1:27017/we_cart?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.10.0/";
+const URL = process.env.MONGODB_URL;
 
-
-const dbConnect = () => {
-  mongoose.connect(URL)
-    .then(() => console.log("Connected to MongoDB"))
-    .catch((err) => console.log(err));
+const dbConnect = async () => {
+  try {
+    const res = await mongoose.connect(URL)
+    console.log("Connected to MongoDB")
+  } catch (error) {
+    console.log("error in database connection is", error)
+  }
 }
-
-
 module.exports = dbConnect
 
